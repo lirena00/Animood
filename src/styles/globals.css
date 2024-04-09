@@ -9,25 +9,52 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+}
+
+@layer base {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+      @apply w-1;
+      @apply h-1
+  }
+
+  ::-webkit-scrollbar-thumb {
+      @apply bg-[#23A9D5];
+  }
+
+  body {
+      @apply font-sans bg-[#1b2028]
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+.animood{
+  background: #23A9D5;
+background: linear-gradient(to right, #23A9D5 40%, #FFFFFF 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+
+.blob {
+  filter: blur(40px);
+  position: absolute;
+  z-index: -1; /* to keep it at below everything else */
+  top: 0; /* to align it at top */
+  left: 0; /* to align it at left */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* to make it circular */
+  opacity: 0;
+  will-change: transform;
+  background: hsl(216, 30%, 59%)
 }
