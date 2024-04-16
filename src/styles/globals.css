@@ -45,6 +45,10 @@ background: linear-gradient(to right, #23A9D5 40%, #FFFFFF 100%);
 
 }
 
+.no-scrollbar{
+  scrollbar-width: none;
+}
+
 .blob {
   filter: blur(40px);
   position: absolute;

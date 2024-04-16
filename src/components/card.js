@@ -8,6 +8,14 @@ import Modal from './modal';
 function Card({ anime }) {
   const [ismodal, setIsmodal] = useState(false);
   const rating = (anime.meanScore / 10).toFixed(1) || 'N/A';
+  const handleClickOutside = () => {
+    setIsmodal(false);
+  };
+
+  const handleClickInside = (event) => {
+    // Prevent the click event from bubbling up to the backdrop div
+    event.stopPropagation();
+  };
 
   const variants= {
     initial: {
@@ -100,11 +108,15 @@ function Card({ anime }) {
       </div>
  
  
-    <div 
-    onClick={setIsmodal.bind(this,false)}
-    className={`${ismodal?'block':'hidden'} fixed backdrop-blur-lg top-0 left-0 w-full h-full  bg-black bg-opacity-50 z-10 flex items-center justify-center`}>
+      <div 
+  onClick={handleClickOutside}
+  className={`${ismodal ? 'visible' : 'invisible'} transition-all duration-300 fixed backdrop-blur-lg top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex items-center justify-center`}
+>
+  <div onClick={handleClickInside} className={`w-[95%] lg:w-[60%] transition-all duration-300 ${ismodal?'scale-100':'scale-0'}`}>
     <Modal anime={anime} />
-    </div>
+  </div>
+</div>
+
 
       </>
   );

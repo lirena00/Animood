@@ -1,16 +1,25 @@
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Card from "@/components/card";
 import Typewriter from 'typewriter-effect';
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Wrapper from "@/components/wrapper";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-export default function Mood() {
+export default function Mood(res) {
   const { data: session} = useSession();
   const [loading,setLoading] = useState(false);
   const [mood, setMood] = useState('');
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    if (res) {
+      const { data } = res;
+      setResponse(data);
+    }
+  }, [res]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true)
@@ -42,7 +51,7 @@ export default function Mood() {
       const query = `
       query Q {
         Page(perPage: 32) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" ) {
+          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" isAdult:false ) {
             id
             title {
               romaji
@@ -100,7 +109,7 @@ export default function Mood() {
       const query = `
       query Q {
         Page(perPage: 32) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" onList:false ) {
+          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" onList:false isAdult:false) {
             id
             title {
               romaji
@@ -154,6 +163,24 @@ export default function Mood() {
   }, [response,session]);
 
   return (
+    <>
+    <Head>
+      <title>Animood | Mood</title>
+      <meta name="title" content="Animood" />
+<meta name="description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://animood.vercel.app" />
+<meta property="og:title" content="Animood" />
+<meta property="og:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
+<meta property="og:image" content="/animood.jpg" />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://animood.vercel.app" />
+<meta property="twitter:title" content="Animood" />
+<meta property="twitter:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
+<meta property="twitter:image" content="/animood.jpg" />
+<meta theme-color="#23A9D5" />
+    </Head>
+   
     <Wrapper>
     <main
       className={`bg-primary flex min-h-screen flex-col items-center z-10 justify-between p-4 `}
@@ -163,14 +190,14 @@ export default function Mood() {
           Animood
         </span>
 
-        <div className="font-bold text-5xl w-full mx-auto justify-center flex">
+        <div className="font-bold text-3xl lg:text-5xl  w-full mx-auto justify-center flex">
             <mark className="inline-block px-2 pb-[14px] text-white bg-action leading-[0.125em]">
               I want to Feel Like
             </mark>
 
         </div>
 
-        <form onSubmit={handleSubmit} className="flex  items-center justify-center relative w-[50%]">
+        <form onSubmit={handleSubmit} className="flex  items-center justify-center relative w-[95%] lg:w-[50%]">
           
       <input 
         type="text" 
@@ -202,12 +229,17 @@ export default function Mood() {
 
 {data && data.length > 0 && (
   <div className="flex flex-col w-[100%] overflow-hidden ">
-    <div className="grid grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 ">
+    <motion.section
+    initial={{ y: 20, opacity: 0 }}
+    whileInView={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    viewport={{ once: true }}
+    className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 ">
       {data.map((anime) => (
         
 <Card anime={anime} key={anime.id} />
       ))}
-    </div>
+    </motion.section>
 
 
   </div>
@@ -215,11 +247,9 @@ export default function Mood() {
 
      </div>
 
-     <div style={{ filter:'blur(100px)'}} className="w-[550px] h-[550px] bg-action rounded-full translate-y-1/2 -z-[1] fixed bottom-0">
-
-     </div>
     </main>
     </Wrapper>
+    </>
   );
 }
 
@@ -231,3 +261,40 @@ export default function Mood() {
       ))}
     </div>
 */
+
+export const getServerSideProps = async (context) => {
+
+  
+  try{
+    var mood = context.query.mood;
+    if (!mood) {
+      return {
+        props: {
+          data: null,
+        },
+      };
+    }
+ 
+  }
+  catch(e){
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
+  const response = await fetch(`https://animood.vercel.app/api/gemini?mood=${encodeURIComponent(mood)}`, {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const data = await response.json();
+  return {
+    props: {
+      data,
+    },
+  };
+};
