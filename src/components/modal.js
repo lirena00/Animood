@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 function Modal({anime}){
     return (
-        <div className="w-[95%] lg:w-[60%] lg:flex  bg-secondary/70 backdrop-blur-xl rounded-lg shadow-lg p-4  border-t-2 border-action">
+        <div className="w-[95%] lg:w-[60%]  lg:flex  bg-secondary/70 backdrop-blur-xl rounded-lg shadow-lg p-4  border-t-2 border-action">
 
 <div className="relative w-full h-[120px] lg:w-[200px] lg:h-[308px]   aspect-[2/3]">
             <Image
@@ -13,8 +13,8 @@ function Modal({anime}){
               className="object-cover w-full h-full rounded-lg md:rounded-l-lg md:rounded-tr-none"
             />
           </div>
-          <div className="p-2  space-y-2 text-white relative">
-            <span className=" text-xl leading-6 font-semibold z-30 text-white">
+          <div className="p-2 text-sm  space-y-2 text-white relative">
+            <span className="text-lg md:text-xl leading-6 font-semibold z-30 text-white">
               { anime.title.userPreferred}
             </span>
 

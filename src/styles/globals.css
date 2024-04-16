@@ -20,7 +20,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-      @apply bg-[#23A9D5];
+      @apply bg-[#23a9d5];
   }
 
   body {

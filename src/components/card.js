@@ -63,7 +63,7 @@ function Card({ anime }) {
 
       <div ref={card} 
       onClick={setIsmodal.bind(this,true)}
-      className='hover:w-[400px] hover:flex-grow snap-start group flex-shrink-0 h-full w-[150px] overflow-hidden relative isolate  p-[1px] bg-transparent backdrop-blur-0 [&:hover>.inner]:bg-primary/90  [&:hover>.inner>.card]:scale-[0.88] [&:hover>.blob]:opacity-100 rounded-[calc(0.5rem+1px)]'>
+      className=' hover:flex-grow snap-start group flex-shrink-0 h-full w-full overflow-hidden relative isolate  p-[1px] bg-transparent backdrop-blur-0 [&:hover>.inner]:bg-primary/90  [&:hover>.inner>.card]:scale-[0.88] [&:hover>.blob]:opacity-100 rounded-[calc(0.5rem+1px)]'>
         <div ref={blob} className="blob"></div>
         <div className='inner z-1 h-full w-full rounded-lg'>
           <div className='card rounded-md h-full w-full overflow-hidden transition-all duration-200'>
@@ -74,20 +74,15 @@ function Card({ anime }) {
                exit="exit"
                initial="initial"
                transition={[0.83, 0, 0.17, 1]}             
-              className="relative aspect-[2/3] group-hover:aspect-[16/9]  ">
+              className="relative aspect-[2/3]   ">
                 <Image
                   src={anime.coverImage.extraLarge}
                   alt="Cover Image"
                   width={200}
                   height={200}
-                  className="group-hover:opacity-0 transition-opacity duration-300 2xl:w-full select-none  h-full object-cover rounded-md"
+                  className="transition-opacity duration-300 2xl:w-full select-none  h-full object-cover rounded-md"
                 />
-                <Image 
-                  src={anime.bannerImage || "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1-OquNCNB6srGe.jpg"}
-                  alt="Banner Image"
-                  layout='fill'
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md absolute inset-0 object-cover "
-                />
+
               </motion.div>
 
               <div className='font-medium text-sm text-white py-1'>
@@ -104,13 +99,11 @@ function Card({ anime }) {
         </div>
       </div>
  
+ 
     <div 
     onClick={setIsmodal.bind(this,false)}
-    className={`${ismodal?'block':'hidden'} absolute backdrop-blur-lg top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex items-center justify-center`}>
-      
+    className={`${ismodal?'block':'hidden'} fixed backdrop-blur-lg top-0 left-0 w-full h-full  bg-black bg-opacity-50 z-10 flex items-center justify-center`}>
     <Modal anime={anime} />
-    
-
     </div>
 
       </>
@@ -119,3 +112,15 @@ function Card({ anime }) {
 
 export default Card;
 
+/*
+hover:w-[400px]
+group-hover:opacity-0 
+w-[150px]
+group-hover:aspect-[16/9]
+                <Image 
+                  src={anime.bannerImage || "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1-OquNCNB6srGe.jpg"}
+                  alt="Banner Image"
+                  layout='fill'
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md absolute inset-0 object-cover "
+                />
+*/
