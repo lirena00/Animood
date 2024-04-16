@@ -70,7 +70,7 @@ export default function Home() {
 <meta property="twitter:title" content="Animood" />
 <meta property="twitter:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
 <meta property="twitter:image" content="/animood.jpg" />
-<meta theme-color="#23A9D5" />
+<meta name="theme-color" content="#23A9D5"/>
 
   </Head>
     <main
