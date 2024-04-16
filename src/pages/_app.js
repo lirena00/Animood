@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import ProgressBar from '@badrap/bar-of-progress'
 import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
 import { useEffect } from "react";
 import Router from "next/router";
 
@@ -39,6 +40,9 @@ export default function App({ Component,   pageProps: { session, ...pageProps }}
   return( 
   <>
   <SessionProvider session={session}>
+  <Head>
+  <script defer src="https://analytics-eta-green.vercel.app/script.js" data-website-id="049ebcd8-241d-480d-814c-ef7fc8746c59"></script>
+  </Head>
   <Component {...pageProps} />
   </SessionProvider>
   </>
