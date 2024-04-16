@@ -44,14 +44,21 @@ export default function Mood(res) {
   };
 
   useEffect(() => {
-    if (response && !session) {
-
-      //request anilist graphql api to get anime data
-      console.log(response.tags)
+   if (response){
+      var accessToken = ""
+      if (session){
+       accessToken = session.user.token;
+      }
+      const headers = session ? {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      } : {
+        "Content-Type": "application/json",
+      };
       const query = `
       query Q {
-        Page(perPage: 32) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" isAdult:false ) {
+        Page(perPage: 48) {
+          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" isAdult:false ${session? "onList:false" : ""} ) {
             id
             title {
               romaji
@@ -81,13 +88,10 @@ export default function Mood(res) {
         }
       }
       `;
-
+      
       fetch("https://graphql.anilist.co", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-   //       Authorization: `Bearer ${accessToken}`,
-        },
+        headers: headers,
         body: JSON.stringify({
           query: query,
         }),
@@ -100,66 +104,7 @@ export default function Mood(res) {
       .catch((error) => {
         console.error("Error:", error);
       });
-    }
-    if (response && session) {
-
-      //request anilist graphql api to get anime data
-      console.log(response.tags)
-      const accessToken = session.user.token;
-      const query = `
-      query Q {
-        Page(perPage: 32) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" onList:false isAdult:false) {
-            id
-            title {
-              romaji
-              english
-              userPreferred
-            }
-            description
-            genres
-            format
-            duration
-            episodes
-            bannerImage
-            episodes
-            meanScore
-            externalLinks {
-              id
-              url
-              icon
-              color
-              type     
-            }
-            coverImage {
-              large
-              extraLarge
-            }
-          }
-        }
-      }
-      `;
-
-      fetch("https://graphql.anilist.co", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({
-          query: query,
-        }),
-      })  
-      .then((response) => response.json())
-      .then((data) => {
-
-        setData(data.data.Page.media)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    }
+    } 
   }, [response,session]);
 
   return (
