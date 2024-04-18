@@ -123,7 +123,7 @@ export default function Home() {
 <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
         {moods.slice(0,11).map((mood, index) => (
           <Link target="_blank" key={index} className="flex-shrink-0" href={`/mood?mood=${mood}`}>
- <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white">
+ <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
   {mood}
  </div>
  </Link>
@@ -135,7 +135,7 @@ export default function Home() {
       <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
      {moods.slice(12,22).map((mood, index) => (
       <Link target="_blank" key={index} className="flex-shrink-0" href={`/mood?mood=${mood}`}>
- <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white">
+ <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
   {mood}
  </div>
  </Link>
@@ -147,7 +147,7 @@ export default function Home() {
       <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
 {moods.slice(23,33).map((mood, index) => (
   <Link target="_blank" key={index} className="flex-shrink-0" href={`/mood?mood=${mood}`}>
- <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white">
+ <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
   {mood}
  </div>
  </Link>
@@ -159,7 +159,7 @@ export default function Home() {
   <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
 {moods.slice(34,45).map((mood, index) => (
 <Link target="_blank" key={index} className="flex-shrink-0" href={`/mood?mood=${mood}`}>
- <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white">
+ <div  className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
   {mood}
  </div>
  </Link>
@@ -182,7 +182,7 @@ export default function Home() {
         viewport={{ once: true }}
         className="font-bold text-5xl w-full  text-center text-white mx-auto justify-center flex">
             
-        Discover Your Perfect Picks With...
+        Discover Your Perfect Anime Picks With...
           
           </motion.div>
 
