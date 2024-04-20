@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { useSession } from "next-auth/react";
 
 function Modal({ anime }) {

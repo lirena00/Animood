@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -102,49 +101,66 @@ export default function Nav() {
           <Link href="/">Animood</Link>
         </span>
 
-        {session ? (
-          <div className="w-[2.125rem] h-[2.125rem] absolute right-2  flex flex-col items-center group ">
+        <div className="gap-2 absolute right-2  flex ">
+          <div className="w-[2.125rem] h-[2.125rem] rounded-md border-action border-2 text-white text-2xl grid place-items-center bg-primary  ">
+            <Link href="https://github.com/LiReNa00/Animood" target="_blank">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                ></path>
+              </svg>
+            </Link>
+          </div>
+          {session ? (
+            <div className="w-[2.125rem] h-[2.125rem] flex flex-col items-center group ">
+              <button
+                type="button"
+                onClick={() => router.push(`/profile/${session?.user.name}`)}
+                className="rounded-md border-action border-2 bg-primary overflow-hidden"
+              >
+                <Image
+                  src={session?.user.image.medium}
+                  alt="avatar"
+                  width={50}
+                  height={50}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+              <ul className="bg-secondary/50 absolute text-sm z-50 w-36 right-0 text-left top-10 text-gray-300 shadow-2xl opacity-0  py-2 rounded  font-light invisible group-hover:visible group-hover:opacity-100 duration-300 transition-all grid  gap-1">
+                <li className="hover:bg-primary  transition-all duration-120 border-action hover:border-l-4 ">
+                  <button
+                    type="button"
+                    className=" w-full h-full p-2"
+                    onClick={() => signOut("AniListProvider")}
+                  >
+                    Log out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
             <button
               type="button"
-              onClick={() => router.push(`/profile/${session?.user.name}`)}
-              className="rounded-md border-action border-2 bg-primary overflow-hidden"
+              onClick={() => signIn("AniListProvider")}
+              title="Login With AniList"
+              className="w-9.5 h-9.5 bg-primary border-2 absolute right-2  border-action rounded-md overflow-hidden"
             >
               <Image
-                src={session?.user.image.medium}
-                alt="avatar"
-                width={50}
-                height={50}
-                className="w-full h-full object-cover"
+                className="h-7 w-7 object-cover"
+                width={0}
+                height={0}
+                src={`https://avatar.vercel.sh/1`}
+                alt="pfp"
               />
             </button>
-            <ul className="bg-secondary/50 absolute text-sm z-50 w-36 right-0 text-left top-10 text-gray-300 shadow-2xl opacity-0  py-2 rounded  font-light invisible group-hover:visible group-hover:opacity-100 duration-300 transition-all grid  gap-1">
-              <li className="hover:bg-primary  transition-all duration-120 border-action hover:border-l-4 ">
-                <button
-                  type="button"
-                  className=" w-full h-full p-2"
-                  onClick={() => signOut("AniListProvider")}
-                >
-                  Log out
-                </button>
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => signIn("AniListProvider")}
-            title="Login With AniList"
-            className="w-9.5 h-9.5 bg-primary border-2 absolute right-2  border-action rounded-md overflow-hidden"
-          >
-            <Image
-              className="h-7 w-7 object-cover"
-              width={0}
-              height={0}
-              src={`https://avatar.vercel.sh/1`}
-              alt="pfp"
-            />
-          </button>
-        )}
+          )}
+        </div>
       </nav>
       <motion.div
         initial={{ y: -20, opacity: 0 }}

@@ -183,7 +183,6 @@ export default function Home() {
                   <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
                     {moods.slice(34, 45).map((mood, index) => (
                       <Link
-                        target="_blank"
                         key={index}
                         className="flex-shrink-0"
                         href={`/mood?mood=${mood}`}
@@ -217,7 +216,7 @@ export default function Home() {
             class="grid grid-cols-1  md:grid-cols-3 p-4 text-white gap-4 justify-between"
           >
             <Link href="/mood">
-              <div class="relative p-4 text-center py-10 text-xl hover:scale-105 transition-all duration-300  flex flex-col items-center w-full border border-white/[0.2] rounded-md">
+              <div class="relative p-4 text-center xl:h-52 py-10 text-xl hover:scale-105 transition-all duration-300  flex flex-col items-center w-full border border-white/[0.2] rounded-md">
                 <div className="p-2 rounded-full bg-secondary w-fit ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +241,7 @@ export default function Home() {
             </Link>
 
             <Link href="/anilist">
-              <div class="relative p-4 py-10 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
+              <div class="relative p-4 py-10 xl:h-52 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
                 <div className="p-2 rounded-full bg-secondary w-fit ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +278,7 @@ export default function Home() {
             </Link>
 
             <Link href="/history">
-              <div class="relative p-4 py-10 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
+              <div class="relative p-4 py-10 xl:h-52 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
                 <div className="p-2 rounded-full bg-secondary w-fit ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
