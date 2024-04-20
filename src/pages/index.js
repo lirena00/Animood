@@ -46,7 +46,7 @@ export default function Home() {
     "Giddy 🎉",
     "Blushing 😳",
     "Heartfelt 💖",
-    "Dreamy ✨",
+    "Excited 😃",
     "Whimsical 🌈",
   ];
 
