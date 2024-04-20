@@ -35,7 +35,7 @@ export default function Mood(res) {
       }
 
       const data = await response.json();
-      setResponse(data); // Handle the response data here, such as updating state or displaying it on the page
+      setResponse(data); 
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -200,14 +200,7 @@ export default function Mood(res) {
   );
 }
 
-/*
-    <div className="flex w-full snap-x  overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 ">
-      {data.slice(9,17).map((anime) => (
-        
-<Card anime={anime} key={anime.id} />
-      ))}
-    </div>
-*/
+
 
 export const getServerSideProps = async (context) => {
   try {
