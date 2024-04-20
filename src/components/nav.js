@@ -149,12 +149,12 @@ export default function Nav() {
               type="button"
               onClick={() => signIn("AniListProvider")}
               title="Login With AniList"
-              className="w-9.5 h-9.5 bg-primary border-2 absolute right-2  border-action rounded-md overflow-hidden"
+              className="w-9.5 h-9.5  border-2  right-2  border-action rounded-md overflow-hidden"
             >
               <Image
                 className="h-7 w-7 object-cover"
-                width={0}
-                height={0}
+                width={100}
+                height={100}
                 src={`https://avatar.vercel.sh/1`}
                 alt="pfp"
               />
