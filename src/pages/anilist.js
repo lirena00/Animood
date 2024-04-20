@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import Card from "@/components/card";
 import Head from "next/head";
 function Anilist() {
-  const { data: session} = useSession();
-  const [recommended,setRecommended] = useState(null);
+  const { data: session } = useSession();
+  const [recommended, setRecommended] = useState(null);
   useEffect(() => {
     if (session) {
       const accessToken = session.user.token;
@@ -59,89 +59,87 @@ function Anilist() {
         body: JSON.stringify({
           query: query,
         }),
-      })  
-      .then((response) => response.json())
-      .then((data) => {
-        
-        const reco = data.data.Page.recommendations
-        const filteredRecommendations = reco && Array.isArray(reco) ? reco.filter(recommendation => recommendation.mediaRecommendation.type !== "MANGA") : [];
- 
-
-        const uniqueRecommendationIds = new Set();
-      
-        // Filter out duplicates from the recommendations array
-        const filteredData = filteredRecommendations.filter((recommendation) => {
-          // Check if the ID is already in the set
-          if (uniqueRecommendationIds.has(recommendation.mediaRecommendation.id)) {
-            // If it's a duplicate, return false to exclude it from the filtered array
-            return false;
-          }
-      
-          // If it's not a duplicate, add the ID to the set and return true
-          uniqueRecommendationIds.add(recommendation.mediaRecommendation.id);
-          return true;
-        });
-        setRecommended(filteredData)
-
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          const reco = data.data.Page.recommendations;
+          const filteredRecommendations =
+            reco && Array.isArray(reco)
+              ? reco.filter(
+                  (recommendation) =>
+                    recommendation.mediaRecommendation.type !== "MANGA"
+                )
+              : [];
+
+          const uniqueRecommendationIds = new Set();
+
+          // Filter out duplicates from the recommendations array
+          const filteredData = filteredRecommendations.filter(
+            (recommendation) => {
+              // Check if the ID is already in the set
+              if (
+                uniqueRecommendationIds.has(
+                  recommendation.mediaRecommendation.id
+                )
+              ) {
+                // If it's a duplicate, return false to exclude it from the filtered array
+                return false;
+              }
+              // If it's not a duplicate, add the ID to the set and return true
+              uniqueRecommendationIds.add(
+                recommendation.mediaRecommendation.id
+              );
+              return true;
+            }
+          );
+          setRecommended(filteredData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   }, [session]);
 
-
   return (
-<>
-<Head>
-  <title>Animood | Title  </title>
-  <meta name="title" content="Animood" />
-<meta name="description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://animood.vercel.app" />
-<meta property="og:title" content="Animood" />
-<meta property="og:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="og:image" content="/animood.jpg" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://animood.vercel.app" />
-<meta property="twitter:title" content="Animood" />
-<meta property="twitter:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="twitter:image" content="/animood.jpg" />
-<meta name="theme-color" content="#23A9D5"/>
-</Head>
+    <>
+      <Head>
+        <title>Animood | Title</title>
+      </Head>
 
-    <Wrapper>
-    <main
-      className={` flex min-h-screen flex-col  z-10 justify-between p-4 `}    
-    >
- {session?(null):(<div className="h-full w-full justify-center items-center text-white text-xl ">Sign In To Use This Feature</div>)}
-     {recommended && (
-      <>
-        <p className="font-semibold text-gray-300 mb-2 relative pl-1 mt-4 text-xl md:text-xl lg:text-2xl ">
-        <span className="bg-action h-full absolute left-0 top-0 bottom-0 w-1"></span>
-        <span className="ml-3 font-semibold">Based on your Anime List</span>
-      </p>
-      <div className="flex flex-col w-[100%] overflow-hidden ">
-        <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-         className="grid grid-cols-7  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 ">
-          {recommended.map((anime) => ( 
-            <Card anime={anime.mediaRecommendation} key={anime.id} />
-          ))}
-        </motion.div>
-        </div>
-        </>
-      )}
-    
-
-</main>
-</Wrapper>
-</>
+      <Wrapper>
+        <main className={` flex min-h-screen flex-col  z-10 space-y-4 p-4 `}>
+          {session ? null : (
+            <div className="h-full w-full justify-center items-center text-white text-xl ">
+              Sign In To Use This Feature
+            </div>
+          )}
+          {recommended && (
+            <>
+              <p className="font-semibold text-gray-300 mb-2 relative pl-1 mt-4 text-xl md:text-xl lg:text-2xl ">
+                <span className="bg-action h-full absolute left-0 top-0 bottom-0 w-1"></span>
+                <span className="ml-3 font-semibold">
+                  Based on your Anime List
+                </span>
+              </p>
+              <div className="flex flex-col w-[100%] overflow-hidden ">
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="grid grid-cols-7  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 "
+                >
+                  {recommended.map((anime) => (
+                    <Card anime={anime.mediaRecommendation} key={anime.id} />
+                  ))}
+                </motion.div>
+              </div>
+            </>
+          )}
+        </main>
+      </Wrapper>
+    </>
   );
 }
 
 export default Anilist;
-

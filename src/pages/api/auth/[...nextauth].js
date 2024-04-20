@@ -21,7 +21,7 @@ const client = new ApolloClient({
 export const authOptions = {
   // Configure one or more authentication providers
   // adapter: MongoDBAdapter(clientPromise),
-  secret:process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     {
       id: "AniListProvider",
@@ -35,8 +35,8 @@ export const authOptions = {
       userinfo: {
         url: "https://graphql.anilist.co", // process.env.GRAPHQL_ENDPOINT,
         async request(context) {
-            const { data } = await client.query({
-              query: gql`
+          const { data } = await client.query({
+            query: gql`
                 query {
                   Viewer {
                     id
@@ -49,31 +49,29 @@ export const authOptions = {
                   }
                 }
               `,
-              context: {
-                headers: {
-                  Authorization: "Bearer " + context.tokens.access_token,
-                },
+            context: {
+              headers: {
+                Authorization: "Bearer " + context.tokens.access_token,
               },
-            });
-            return {
-              token: context.tokens.access_token,
-              name: data.Viewer.name,
-              sub: data.Viewer.id,
-              image: data.Viewer.avatar,
-            };
+            },
+          });
+          return {
+            token: context.tokens.access_token,
+            name: data.Viewer.name,
+            sub: data.Viewer.id,
+            image: data.Viewer.avatar,
+          };
         },
-        
       },
 
-      
-      clientId:process.env.ANILIST_CLIENT_ID,
+      clientId: process.env.ANILIST_CLIENT_ID,
       clientSecret: process.env.ANILIST_CLIENT_SECRET,
       profile(profile) {
         return {
           token: profile.token,
           id: profile.sub,
           name: profile?.name,
-          image: profile.image
+          image: profile.image,
         };
       },
     },

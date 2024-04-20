@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import Card from "@/components/card";
-import Typewriter from 'typewriter-effect';
+import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Wrapper from "@/components/wrapper";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
 export default function Mood(res) {
-  const { data: session} = useSession();
-  const [loading,setLoading] = useState(false);
-  const [mood, setMood] = useState('');
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
+  const [mood, setMood] = useState("");
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
-  
+
   useEffect(() => {
     if (res) {
       const { data } = res;
@@ -22,20 +21,23 @@ export default function Mood(res) {
   }, [res]);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await fetch(`/api/gemini?mood=${encodeURIComponent(mood)}`, {
-        method: 'POST'
-      });
+      const response = await fetch(
+        `/api/gemini?mood=${encodeURIComponent(mood)}`,
+        {
+          method: "POST",
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
-      setResponse(data) // Handle the response data here, such as updating state or displaying it on the page
+      setResponse(data); // Handle the response data here, such as updating state or displaying it on the page
     } catch (error) {
-      console.error('There was an error!', error);
+      console.error("There was an error!", error);
     }
   };
 
@@ -44,21 +46,25 @@ export default function Mood(res) {
   };
 
   useEffect(() => {
-   if (response){
-      var accessToken = ""
-      if (session){
-       accessToken = session.user.token;
+    if (response) {
+      var accessToken = "";
+      if (session) {
+        accessToken = session.user.token;
       }
-      const headers = session ? {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      } : {
-        "Content-Type": "application/json",
-      };
+      const headers = session
+        ? {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          }
+        : {
+            "Content-Type": "application/json",
+          };
       const query = `
       query Q {
         Page(perPage: 48) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${response.genre}" isAdult:false ${session? "onList:false" : ""} ) {
+          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${
+        response.genre
+      }" isAdult:false ${session ? "onList:false" : ""} ) {
             id
             title {
               romaji
@@ -88,112 +94,108 @@ export default function Mood(res) {
         }
       }
       `;
-      
+
       fetch("https://graphql.anilist.co", {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
           query: query,
         }),
-      })  
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data.data.Page.media)
-        setLoading(false)
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    } 
-  }, [response,session]);
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data.data.Page.media);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }, [response, session]);
 
   return (
     <>
-    <Head>
-      <title>Animood | Mood</title>
-      <meta name="title" content="Animood" />
-<meta name="description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://animood.vercel.app" />
-<meta property="og:title" content="Animood" />
-<meta property="og:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="og:image" content="/animood.jpg" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://animood.vercel.app" />
-<meta property="twitter:title" content="Animood" />
-<meta property="twitter:description" content="Animood is AI based anime recommendation website which recommends you anime based on your mood, history and overall anime list." />
-<meta property="twitter:image" content="/animood.jpg" />
-<meta name="theme-color" content="#23A9D5"/>
-    </Head>
-   
-    <Wrapper>
-    <main
-      className={`bg-primary flex min-h-screen flex-col items-center z-10 justify-between p-4 `}
-    >
-      <div className="flex flex-col w-full items-center justify-between font-mono text-sm  space-y-4">
-        <span className="  text-5xl animood pb-6 pt-2 ">
-          Animood
-        </span>
+      <Head>
+        <title>Animood | Mood</title>
+        <meta name="title" content="Animood" />
+      </Head>
 
-        <div className="font-bold text-3xl lg:text-5xl  w-full mx-auto justify-center flex">
-            <mark className="inline-block px-2 pb-[14px] text-white bg-action leading-[0.125em]">
-              I want to Feel Like
-            </mark>
+      <Wrapper>
+        <main
+          className={`bg-primary flex min-h-screen flex-col items-center z-10 space-y-4 p-4 `}
+        >
+          <div className="flex flex-col w-full items-center justify-between font-mono text-sm  space-y-4">
+            <span className="  text-5xl animood pb-6 pt-2 ">Animood</span>
 
-        </div>
+            <div className="font-bold text-3xl lg:text-5xl  w-full mx-auto justify-center flex">
+              <mark className="inline-block px-2 pb-[14px] text-white bg-action leading-[0.125em]">
+                I want to Feel Like
+              </mark>
+            </div>
 
-        <form onSubmit={handleSubmit} className="flex  items-center justify-center relative w-[95%] lg:w-[50%]">
-          
-      <input 
-        type="text" 
-        name="mood" 
-        placeholder="Enter your mood" 
-        value={mood} 
-        className="w-full px-4 py-2.5 outline-none text-gray-400 rounded-l-lg"
-        onChange={handleMoodChange} 
-      />
-      <button type="submit">
-        <div className="w-10 h-10 outline-none bg-action rounded-r-lg text-white grid place-items-center">
-<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M192 112a80 80 0 1 1-80-80a80 80 0 0 1 80 80" opacity=".2"></path><path d="m229.66 218.34l-50.06-50.06a88.21 88.21 0 1 0-11.32 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"></path></g></svg>
-        </div>
-      </button>
-    </form>
+            <form
+              onSubmit={handleSubmit}
+              className="flex  items-center justify-center relative w-[95%] lg:w-[50%]"
+            >
+              <input
+                type="text"
+                name="mood"
+                placeholder="Enter your mood"
+                value={mood}
+                className="w-full px-4 py-2.5 outline-none text-gray-400 rounded-l-lg"
+                onChange={handleMoodChange}
+              />
+              <button type="submit">
+                <div className="w-10 h-10 outline-none bg-action rounded-r-lg text-white grid place-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="2em"
+                    height="2em"
+                    viewBox="0 0 256 256"
+                  >
+                    <g fill="currentColor">
+                      <path
+                        d="M192 112a80 80 0 1 1-80-80a80 80 0 0 1 80 80"
+                        opacity=".2"
+                      ></path>
+                      <path d="m229.66 218.34l-50.06-50.06a88.21 88.21 0 1 0-11.32 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"></path>
+                    </g>
+                  </svg>
+                </div>
+              </button>
+            </form>
 
-{loading &&(
-    <div className="grid place-items-center text-xl text-white">
-    <Typewriter
-      options={{
-        strings: ['Summoning Onii-chan...', 'Fetching data...'],
-        autoStart: true,
-        loop: true,
-        deleteSpeed: 50,
-      }}
-    />
-    </div>
-)}
+            {loading && (
+              <div className="grid place-items-center text-xl text-white">
+                <Typewriter
+                  options={{
+                    strings: ["Summoning Onii-chan...", "Fetching data..."],
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 50,
+                  }}
+                />
+              </div>
+            )}
 
-{data && data.length > 0 && (
-  <div className="flex flex-col w-[100%] overflow-hidden ">
-    <motion.section
-    initial={{ y: 20, opacity: 0 }}
-    whileInView={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true }}
-    className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 ">
-      {data.map((anime) => (
-        
-<Card anime={anime} key={anime.id} />
-      ))}
-    </motion.section>
-
-
-  </div>
-)}
-
-     </div>
-
-    </main>
-    </Wrapper>
+            {data && data.length > 0 && (
+              <div className="flex flex-col w-[100%] overflow-hidden ">
+                <motion.section
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 "
+                >
+                  {data.map((anime) => (
+                    <Card anime={anime} key={anime.id} />
+                  ))}
+                </motion.section>
+              </div>
+            )}
+          </div>
+        </main>
+      </Wrapper>
     </>
   );
 }
@@ -208,9 +210,7 @@ export default function Mood(res) {
 */
 
 export const getServerSideProps = async (context) => {
-
-  
-  try{
+  try {
     var mood = context.query.mood;
     if (!mood) {
       return {
@@ -219,18 +219,19 @@ export const getServerSideProps = async (context) => {
         },
       };
     }
- 
-  }
-  catch(e){
+  } catch (e) {
     return {
       props: {
         data: null,
       },
     };
   }
-  const response = await fetch(`https://animood.vercel.app/api/gemini?mood=${encodeURIComponent(mood)}`, {
-    method: "POST",
-  });
+  const response = await fetch(
+    `https://animood.vercel.app/api/gemini?mood=${encodeURIComponent(mood)}`,
+    {
+      method: "POST",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
