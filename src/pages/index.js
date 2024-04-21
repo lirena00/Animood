@@ -197,7 +197,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href="/anilist">
+            <Link href="/history">
               <div class="relative p-4 py-10 xl:h-52 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
                 <div className="p-2 rounded-full bg-secondary w-fit ">
                   <svg
@@ -234,7 +234,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href="/history">
+            <Link href="/anilist">
               <div class="relative p-4 py-10 xl:h-52 text-xl text-center flex flex-col hover:scale-105 transition-all duration-300 items-center w-full border border-white/[0.2] rounded-md">
                 <div className="p-2 rounded-full bg-secondary w-fit ">
                   <svg
