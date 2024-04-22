@@ -89,7 +89,6 @@ export default function Home() {
                   <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
                     {moods.slice(0, 11).map((mood, index) => (
                       <Link
-                        target="_blank"
                         key={index}
                         className="flex-shrink-0"
                         href={`/mood?mood=${mood}`}
@@ -106,7 +105,6 @@ export default function Home() {
                   <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
                     {moods.slice(12, 22).map((mood, index) => (
                       <Link
-                        target="_blank"
                         key={index}
                         className="flex-shrink-0"
                         href={`/mood?mood=${mood}`}
@@ -123,7 +121,6 @@ export default function Home() {
                   <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
                     {moods.slice(23, 33).map((mood, index) => (
                       <Link
-                        target="_blank"
                         key={index}
                         className="flex-shrink-0"
                         href={`/mood?mood=${mood}`}
