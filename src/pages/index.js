@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import  moods  from "@/utils/mood";
+import moods from "@/utils/mood";
 
 export default function Home() {
   const router = useRouter();
@@ -85,69 +85,28 @@ export default function Home() {
               </form>
 
               <div className="py-2  my-4 gap-1 flex-col flex">
-                <div className="flex items-center">
-                  <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
-                    {moods.slice(0, 11).map((mood, index) => (
-                      <Link
-                        key={index}
-                        className="flex-shrink-0"
-                        href={`/mood?mood=${mood}`}
-                      >
-                        <div className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
-                          {mood}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
-                    {moods.slice(12, 22).map((mood, index) => (
-                      <Link
-                        key={index}
-                        className="flex-shrink-0"
-                        href={`/mood?mood=${mood}`}
-                      >
-                        <div className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
-                          {mood}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
-                    {moods.slice(23, 33).map((mood, index) => (
-                      <Link
-                        key={index}
-                        className="flex-shrink-0"
-                        href={`/mood?mood=${mood}`}
-                      >
-                        <div className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
-                          {mood}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="flex gap-1 w-full overflow-auto no-scrollbar ">
-                    {moods.slice(34, 45).map((mood, index) => (
-                      <Link
-                        key={index}
-                        className="flex-shrink-0"
-                        href={`/mood?mood=${mood}`}
-                      >
-                        <div className="text-gray-500 text-sm  rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
-                          {mood}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                {Array(4)
+                  .fill()
+                  .map((_, sectionIndex) => (
+                    <div
+                      key={sectionIndex}
+                      className="flex gap-1 w-full overflow-auto no-scrollbar"
+                    >
+                      {moods
+                        .slice(sectionIndex * 11, sectionIndex * 11 + 11)
+                        .map((mood, moodIndex) => (
+                          <Link
+                            key={moodIndex}
+                            className="flex-shrink-0"
+                            href={`/mood?mood=${mood}`}
+                          >
+                            <div className="text-gray-500 text-sm rounded-full py-1.5 px-4 bg-white hover:scale-105 transition-all duration-300">
+                              {mood}
+                            </div>
+                          </Link>
+                        ))}
+                    </div>
+                  ))}
               </div>
             </div>
           </motion.div>
