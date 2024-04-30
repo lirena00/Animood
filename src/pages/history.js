@@ -20,9 +20,9 @@ function History() {
               activities(userId: ${session?.user.id}, sort: ID_DESC) {
                 ... on ListActivity {
                   type
+                  status
                   media {
                     id
-                    status(version: 2)
                   }
                 }
               }
@@ -38,12 +38,14 @@ function History() {
 
         const data = await response.json();
 
+        console.log(data.data.Page.activities);
+
         const activity = data?.data?.Page?.activities.find(
           (activity) =>
             activity.type === "ANIME_LIST" &&
-            activity.media.status !== ("DROPPED" || "PLANNING")
+            activity.status !== "plans to watch" && activity.status !== "dropped"
         );
-
+ 
         if (activity) {
           const recommendationQuery = `
             query GetAnimeRecommendation($mediaId: Int!) {
