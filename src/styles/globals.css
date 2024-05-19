@@ -6,6 +6,11 @@
 
 }
 
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('/fonts/comfortaa.ttf');
+}
+
 @layer base {
   /* Custom scrollbar */
   ::-webkit-scrollbar {
@@ -18,7 +23,7 @@
   }
 
   body {
-      @apply font-sans bg-[#1b2028]
+      @apply font-comfortaa bg-[#1b2028]
   }
 }
 

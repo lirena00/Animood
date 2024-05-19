@@ -79,6 +79,10 @@ export default async function handler(req, res) {
       {
         text: 'output: {\n  "emotion": "Contentment",\n  "genre": "Slice of Life",\n  "tags": "Cute Boys Doing Cute Things"\n}',
       },
+      { text: "input: 🎶🎤" },
+      {
+        text: 'output: {\n  "emotion": "Creative",\n  "genre": "Music",\n  "tags": "Cute Girls Doing Cute Things"\n}',
+      },
       { text: "input: ✨✨" },
       {
         text: 'output: {\n  "emotion": "Wonder",\n  "genre": "Fantasy",\n  "tags": "Fairy"\n}',

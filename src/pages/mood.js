@@ -11,6 +11,7 @@ export default function Mood(res) {
   const [loading, setLoading] = useState(false);
   const [mood, setMood] = useState("");
   const [response, setResponse] = useState(null);
+  const [sort, setSort] = useState("TRENDING_DESC");
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export default function Mood(res) {
       const query = `
       query Q {
         Page(perPage: 48) {
-          media(sort: TRENDING_DESC type: ANIME tag:"${response.tags}" genre:"${
+          media(sort: ${sort} type: ANIME tag:"${response.tags}" genre:"${
         response.genre
       }" isAdult:false ${session ? "onList:false" : ""} ) {
             id
@@ -111,7 +112,7 @@ export default function Mood(res) {
           console.error("Error:", error);
         });
     }
-  }, [response, session]);
+  }, [response, session,sort]);
 
   return (
     <>
@@ -124,7 +125,7 @@ export default function Mood(res) {
         <main
           className={`bg-primary flex min-h-screen flex-col items-center z-10 space-y-4 p-4 `}
         >
-          <div className="flex flex-col w-full items-center justify-between font-mono text-sm  space-y-4">
+          <div className="flex flex-col w-full items-center justify-between  text-sm  space-y-4">
             <span className="  text-5xl animood pb-6 pt-2 ">Animood</span>
 
             <div className="font-bold text-3xl lg:text-5xl  w-full mx-auto justify-center flex">
@@ -179,6 +180,18 @@ export default function Mood(res) {
             )}
 
             {data && data.length > 0 && (
+            <div className="relative space-y-4">
+            <div className="flex gap-2 absolute right-3  items-center">
+          
+              <select 
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="bg-transparent text-base text-gray-300 outline-none px-2 py-1 text-semibold">
+                <option value="TRENDING_DESC" >Trending</option>
+                <option value="POPULARITY_DESC">Popularity</option>
+                <option value="SCORE_DESC">Score</option>
+              </select>
+              </div>
               <div className="flex flex-col w-[100%] overflow-hidden ">
                 <motion.section
                   initial={{ y: 20, opacity: 0 }}
@@ -191,6 +204,7 @@ export default function Mood(res) {
                     <Card anime={anime} key={anime.id} />
                   ))}
                 </motion.section>
+              </div>
               </div>
             )}
           </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import moods from "@/utils/mood";
+import ChangeLog from "@/components/changelog";
 
 export default function Home() {
   const router = useRouter();
@@ -37,7 +38,8 @@ export default function Home() {
       <main
         className={`bg-primary flex min-h-screen flex-col items-center z-10 justify-between p-4 `}
       >
-        <div className="flex flex-col w-full  font-mono   space-y-4">
+        <ChangeLog/>
+        <div className="flex flex-col w-full space-y-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}

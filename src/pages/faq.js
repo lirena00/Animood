@@ -11,7 +11,7 @@ function FAQ() {
         <main
           className={` flex min-h-screen flex-col  z-10 justify-between p-4 `}
         >
-          <div className="flex gap-2  w-full items-center justify-center font-mono text-white text-center  space-y-4 text-lg">
+          <div className="flex gap-2  w-full items-center justify-center  text-white text-center  space-y-4 text-lg">
             <span className="text-action text-3xl">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

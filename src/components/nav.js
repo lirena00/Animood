@@ -34,7 +34,8 @@ export default function Nav() {
             </Link>
 
             <Link href="/anilist">
-              <li className="hover:bg-primary w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-l-4 ">
+              <li className="hover:bg-primary w-[68px] relative p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-l-4 ">
+                <span className="absolute top-1 right-2 rounded-full bg-action px-1.5 py-0.5 text-xs">β</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1.75em"
@@ -51,7 +52,8 @@ export default function Nav() {
             </Link>
 
             <Link href="/history">
-              <li className="hover:bg-primary text-center w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-l-4 ">
+              <li className="hover:bg-primary relative text-center w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-l-4 ">
+              <span className="absolute top-1 right-2 rounded-full bg-action px-1.5 py-0.5 text-xs">β</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1.75em"
@@ -97,26 +99,39 @@ export default function Nav() {
           </ul>
         </motion.div>
 
-        <span className="text-3xl px-2  animood font-mono select-none">
+        <span className="text-3xl px-2  animood  select-none">
           <Link href="/">Animood</Link>
         </span>
 
         <div className="gap-2 absolute right-2  flex ">
-          <div className="w-[2.125rem] h-[2.125rem] rounded-md border-action border-2 text-white text-2xl grid place-items-center bg-primary  ">
-            <Link href="https://github.com/LiReNa00/Animood" target="_blank">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                ></path>
-              </svg>
-            </Link>
-          </div>
+        <div className="w-[2.125rem] h-[2.125rem] rounded-md border-action border-2 text-white text-2xl grid place-items-center bg-primary">
+  <Link href="https://producthunt.com/posts/animood" target="_blank" title="Upvote Product Hunt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
+      <defs>
+        <linearGradient id="logosProducthunt0" x1="50%" x2="50%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor="#DA552F"></stop>
+          <stop offset="100%" stopColor="#D04B25"></stop>
+        </linearGradient>
+      </defs>
+      <g fill="none" fillRule="evenodd">
+        <path fill="url(#logosProducthunt0)" d="M128 256c70.694 0 128-57.306 128-128S198.694 0 128 0S0 57.306 0 128s57.306 128 128 128"></path>
+        <path fill="#FFF" d="M96 76.8v102.4h19.2v-32h29.056c19.296-.512 34.944-16.16 34.944-35.2c0-19.552-15.648-35.2-34.944-35.2zm48.493 51.2H115.2V96h29.293c8.563 0 15.507 7.168 15.507 16s-6.944 16-15.507 16"></path>
+      </g>
+    </svg>
+  </Link>
+</div>
+
+<div className="w-[2.125rem] h-[2.125rem] rounded-md border-action border-2 text-white text-2xl grid place-items-center bg-primary">
+  <Link href="https://github.com/LiReNa00/Animood" target="_blank" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+      <path
+        fill="currentColor"
+        d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+      ></path>
+    </svg>
+  </Link>
+</div>
+
           {session ? (
             <div className="w-[2.125rem] h-[2.125rem] flex flex-col items-center group ">
               <button
@@ -149,15 +164,9 @@ export default function Nav() {
               type="button"
               onClick={() => signIn("AniListProvider")}
               title="Login With AniList"
-              className="w-9.5 h-9.5  border-2  right-2  border-action rounded-md overflow-hidden"
+              className="px-2 bg-action text-white  right-2   rounded-md overflow-hidden"
             >
-              <Image
-                className="h-7 w-7 object-cover"
-                width={100}
-                height={100}
-                src={`https://avatar.vercel.sh/1`}
-                alt="pfp"
-              />
+              Login
             </button>
           )}
         </div>
@@ -187,7 +196,8 @@ export default function Nav() {
           </Link>
 
           <Link href="/anilist">
-            <li className="hover:bg-primary w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-b-4 ">
+            <li className="hover:bg-primary relative w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-b-4 ">
+            <span className="absolute top-1 right-2 rounded-full bg-action px-1.5 py-0.5 text-xs">β</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.75em"
@@ -204,7 +214,8 @@ export default function Nav() {
           </Link>
 
           <Link href="/history">
-            <li className="hover:bg-primary text-center w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-b-4 ">
+            <li className="hover:bg-primary relative  text-center w-[68px] p-2 mx-auto flex flex-col gap-2 items-center text-white transition-all duration-120 border-action hover:border-b-4 ">
+            <span className="absolute top-1 right-2 rounded-full bg-action px-1.5 py-0.5 text-xs">β</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.75em"
@@ -227,6 +238,7 @@ export default function Nav() {
                   ></circle>
                 </g>
               </svg>
+              
               History
             </li>
           </Link>

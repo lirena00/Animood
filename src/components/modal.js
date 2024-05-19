@@ -86,7 +86,7 @@ function Modal({ anime }) {
   };
 
   return (
-    <div className=" lg:flex  bg-secondary/70 backdrop-blur-xl rounded-lg shadow-lg p-4  border-t-2 border-action">
+    <div className=" lg:flex font-comfortaa  bg-secondary/70 backdrop-blur-xl rounded-lg shadow-lg p-4  border-t-2 border-action">
       <div className="relative w-full h-[120px] lg:w-[200px] lg:h-[308px]   aspect-[2/3]">
         <Image
           src={anime.coverImage.extraLarge}
@@ -155,7 +155,7 @@ function Modal({ anime }) {
         </div>
 
         <div
-          className="max-h-72 overflow-y-auto -mr-5"
+          className="max-h-72 overflow-y-auto text-sm -mr-5"
           dangerouslySetInnerHTML={{ __html: anime.description }}
         />
 
