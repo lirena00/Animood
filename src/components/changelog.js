@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const CURRENT_VERSION = "1.1.0"; // Replace with the actual current version
 
 const ChangeLog = () => {
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     // Check if the popup has been shown for the current version
