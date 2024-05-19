@@ -1,40 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+![image](https://github.com/LiReNa00/Animood/assets/92094239/d22e1a68-ae71-4e4f-a36a-eeb4bfc604ca)
 
-First, run the development server:
+## Inspiration
+One day, I was feeling particularly cheerful and decided to unwind with some anime. Typically, I'd choose something at random, preferring to avoid spoilers and dive into new stories blind. However, on this occasion, my pick didn't align with my upbeat mood, leaving me feeling disconnected from the storyline. Disheartened, I set the series aside for another time.
+After few months, I revisited the same anime and found myself surprisingly captivated. It dawned on me that my mood was the missing piece of the puzzle, influencing my perception of the show. Curious if others had similar experiences, I scoured the internet for platforms that recommend anime based on mood, only to find moveme.tv which only recommends movie based on mood. So I took it in my hands and made Animood.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## What it does
+Animood is designed to suggest anime based on your mood, history, and overall anime list. Initially focused solely on mood, I expanded its features during development to include these additional aspects, though they're still in the beta phase.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How I built it
+For mood-based recommendations, I structured the prompt for Gemini to recognize mood based on the provided text/emoji. It then returns a JSON response indicating the most suitable tag and genre for the mood. Utilizing this information, search results are gathered from the AniList GraphQL API, and these results are ultimately displayed to the user.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## What I learned
+- Through this experience, I gained valuable insights. Firstly, I discovered the profound influence of mood on the enjoyment of entertainment, motivating the development of Animood.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Secondly, I learned how to craft prompts that minimize errors and enhance efficiency. Additionally, I honed my skills in leveraging generative AI more effectively within my projects.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## What's next for Animood
+The next phase of enhancing Animood's recommendations centers on personalization. By delving into the user's genre preferences and viewing history, we aim to tailor suggestions more accurately. Additionally, we'll integrate a similarity percentage feature, akin to Netflix's, to provide users with insights into how closely recommended anime align with their interests. When this will be completed history and overall anime list suggestion will be completed in my opinion.
