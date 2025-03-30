@@ -25,7 +25,7 @@ export default function Mood(res) {
     setLoading(true);
     try {
       const response = await fetch(
-        `/api/gemini?mood=${encodeURIComponent(mood)}`,
+        `/api/gpt?mood=${encodeURIComponent(mood)}`,
         {
           method: "POST",
         }
@@ -36,7 +36,7 @@ export default function Mood(res) {
       }
 
       const data = await response.json();
-      setResponse(data); 
+      setResponse(data);
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -112,7 +112,7 @@ export default function Mood(res) {
           console.error("Error:", error);
         });
     }
-  }, [response, session,sort]);
+  }, [response, session, sort]);
 
   return (
     <>
@@ -180,31 +180,31 @@ export default function Mood(res) {
             )}
 
             {data && data.length > 0 && (
-            <div className="relative space-y-4">
-            <div className="flex gap-2 absolute right-3  items-center">
-          
-              <select 
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              className="bg-transparent text-base text-gray-300 outline-none px-2 py-1 text-semibold">
-                <option value="TRENDING_DESC" >Trending</option>
-                <option value="POPULARITY_DESC">Popularity</option>
-                <option value="SCORE_DESC">Score</option>
-              </select>
-              </div>
-              <div className="flex flex-col w-[100%] overflow-hidden ">
-                <motion.section
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 "
-                >
-                  {data.map((anime) => (
-                    <Card anime={anime} key={anime.id} />
-                  ))}
-                </motion.section>
-              </div>
+              <div className="relative space-y-4">
+                <div className="flex gap-2 absolute right-3  items-center">
+                  <select
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value)}
+                    className="bg-transparent text-base text-gray-300 outline-none px-2 py-1 text-semibold"
+                  >
+                    <option value="TRENDING_DESC">Trending</option>
+                    <option value="POPULARITY_DESC">Popularity</option>
+                    <option value="SCORE_DESC">Score</option>
+                  </select>
+                </div>
+                <div className="flex flex-col w-[100%] overflow-hidden ">
+                  <motion.section
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
+                    className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8  w-full  snap-x   overflow-x-hidden py-4 px-3 gap-2 justify-center font-sans transition-all duration-300 "
+                  >
+                    {data.map((anime) => (
+                      <Card anime={anime} key={anime.id} />
+                    ))}
+                  </motion.section>
+                </div>
               </div>
             )}
           </div>
@@ -213,8 +213,6 @@ export default function Mood(res) {
     </>
   );
 }
-
-
 
 export const getServerSideProps = async (context) => {
   try {
@@ -233,8 +231,10 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
+  const req = context.req;
+  const baseUrl = req ? `http://${req.headers.host}` : "";
   const response = await fetch(
-    `https://animood.vercel.app/api/gemini?mood=${encodeURIComponent(mood)}`,
+    `${baseUrl}/api/gpt?mood=${encodeURIComponent(mood)}`,
     {
       method: "POST",
     }
