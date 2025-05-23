@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-const CURRENT_VERSION = "1.2.0"; // Replace with the actual current version
+const CURRENT_VERSION = "1.2.1"; // Replace with the actual current version
 
 const ChangeLog = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -59,15 +59,8 @@ const ChangeLog = () => {
               <li className="flex items-start">
                 <span className="text-action mr-2">•</span>
                 <span>
-                  Switched build system from npm to pnpm for faster
-                  installations and better dependency management
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-action mr-2">•</span>
-                <span>
-                  Migrated AI backend from Gemini to GPT-4 Turbo for more
-                  accurate and helpful responses
+                  Migrated AI backend from GPT-4 Turbo to Cloudflare Worker AI
+                  for more accurate and helpful responses
                 </span>
               </li>
               <li className="flex items-start">
